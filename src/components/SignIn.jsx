@@ -4,7 +4,7 @@ import { Link, generatePath } from "react-router-dom"
 import {db} from '../firebase'
 import { useNavigate } from "react-router-dom"
 import { collection, getDocs } from "firebase/firestore";
-export const SignIn = () =>{
+export const SignIn = ({myUser,setMyUser}) =>{
     const navigate = useNavigate()
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');   
@@ -39,6 +39,7 @@ export const SignIn = () =>{
           const userData = doc.data()
           if ((userData.username === userDetails.username) && (userData.password === userDetails.password)){
              checker = true
+             setMyUser(userData)
           }
         });
         if(checker){
