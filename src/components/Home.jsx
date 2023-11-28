@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { NewLogs } from "./NewLogs";
 
 export const Home = ({myUser,setMyUser}) =>{
     console.log(myUser)
@@ -9,8 +10,12 @@ export const Home = ({myUser,setMyUser}) =>{
         const year = today.getFullYear();
         const date = today.getDate();
         return `${month}/${date}/${year}`;
-      }
-      const [currentDate, setCurrentDate] = useState(getDate());
+      } 
+      let date = String(new Date());
+      date = date.slice(0,16)
+      const [currentDate, setCurrentDate] = useState(date);
+      console.log("Tue Nov 28 2023 ".length)
+     
 
     if (Object.keys(myUser).length !== 0 ){
     return (
@@ -22,10 +27,10 @@ export const Home = ({myUser,setMyUser}) =>{
             setMyUser({})
         }}>Click here to sign out</button>
         <p>Today's Date: {currentDate}</p>
-        <p>Yesterday | Today | <Link to="/Calendar">Full Calendar</Link></p>
+        <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
         <p>Time Remaining on Today is x</p>
-        <button>Add New Log</button>
-        <p>Current Logs</p>
+        <NewLogs myUser={myUser} setMyUser={setMyUser} />
+        <p>Current Logs: </p>
         </div>
     )
     }else{

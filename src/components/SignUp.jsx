@@ -50,7 +50,7 @@ async function addToDataBase (){
     const docRef = await setDoc(doc(db, "Users",username), {
     username: username,
     password: password,
-    calendar: [],
+    logs: [],
     });
 }
 
