@@ -4,14 +4,11 @@ import { Link, generatePath } from "react-router-dom"
 import {db} from '../firebase'
 import { useNavigate } from "react-router-dom"
 import { collection, getDocs } from "firebase/firestore";
-import {Icon} from 'react-icons-kit';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
 export const SignIn = () =>{
     const navigate = useNavigate()
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');   
-    const [icon, setIcon] = useState(eyeOff);
+    const [isHidden, setIsHidden] = useState("hide");
     const [myPassword,setMyPassword] = useState("")
     const [myUserName, setMyUsername] = useState("")
     const [correctMessage,setCorrectMessage] = useState("")
@@ -23,13 +20,15 @@ export const SignIn = () =>{
         }
          await getData(myUser)
     } 
-    const handleToggle = () => {
-        if (type==='password'){
-           setIcon(eye);
+    const handleToggle = (event) => {
+        event.preventDefault()
+        if (isHidden === "hide"){
            setType('text')
+           setIsHidden("show")
         } else {
-           setIcon(eyeOff)
            setType('password')
+           setIsHidden("hide")
+    
         }
      }
     async function getData(userDetails){
@@ -67,9 +66,8 @@ export const SignIn = () =>{
                 setMyPassword(event.target.value)
                 setCorrectMessage("")
             }} value={myPassword} placeholder="Enter password here" className="password"></input>
-              <span class="flex justify-around items-center" onClick={handleToggle}>
-                  <Icon class="absolute mr-10" icon={icon} size={25}/>
-              </span>
+              <button class="flex justify-around items-center" onClick={handleToggle}>{isHidden}
+              </button>
         
             <button>Submit Here</button>
         </form>
