@@ -1,11 +1,14 @@
 import { useEffect,useState } from "react"
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { convertMinutesToTime } from "../libs/functions";
 
 
 export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate}) =>{
     const [isLoading,setIsLoading] = useState(true)
-    function transferTodaysLogs(array,selectedDate){
+    const [timeRemaining,setTimeRemaining] = useState("")
+    const durations = userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0)
+function transferTodaysLogs(array,selectedDate){
             let myArray = array.filter((item) =>{
                 return (item.Date === selectedDate)
             })
@@ -26,6 +29,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate}) =>{
     async function settingData(){
         const myData = await gettingData()
         setUserLogs(transferTodaysLogs(myData,currentDate))
+        setTimeRemaining(convertMinutesToTime(durations))    
         setIsLoading(false)
     }
     async function gettingData(){
@@ -46,6 +50,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate}) =>{
 
     if(!isLoading){
     return <div>
+        <p>Time Remaining: {timeRemaining}</p>
         <ul>
             {userLogs.map((log) =>{
                 return <div>

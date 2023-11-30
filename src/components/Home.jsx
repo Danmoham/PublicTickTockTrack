@@ -5,13 +5,7 @@ import { CurrentLogs } from "./CurrentLogs";
 
 export const Home = ({myUser,setMyUser}) =>{
     const [userLogs,setUserLogs] = useState([])
-    function getDate() {
-        const today = new Date();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        const date = today.getDate();
-        return `${month}/${date}/${year}`;
-      } 
+    const [isLoading,setIsLoading] = useState("")
       let date = String(new Date());
       date = date.slice(0,15)
       const [currentDate, setCurrentDate] = useState(date);
@@ -28,7 +22,6 @@ export const Home = ({myUser,setMyUser}) =>{
         }}>Click here to sign out</button>
         <p>Today's Date: {currentDate}</p>
         <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
-        <p>Time Remaining on Today is x</p>
         <NewLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
         <h3>Current Logs for the day:</h3>
         <CurrentLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
