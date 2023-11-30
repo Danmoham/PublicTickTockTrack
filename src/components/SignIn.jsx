@@ -52,7 +52,11 @@ export const SignIn = ({myUser,setMyUser}) =>{
 }
 
 
-    return <div><h2>Enter sign in details below</h2><div>
+    return <div>
+                <h2>Overview</h2>
+                <p>A Fun web application you can use to track your daily activity on each day!</p>
+                <p>You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
+        <h2>Enter sign in details below</h2><div>
         <form onSubmit={dataCheck}>
             <label htmlFor="username">UserName:</label>
             <input onChange={(event) =>{

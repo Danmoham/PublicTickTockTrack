@@ -13,7 +13,7 @@ function App() {
       <Header/>
     <div>
     <Routes>
-      <Route path="/" element={<Home setMyUser={setMyUser}myUser={myUser}/>}/>
+      <Route path="/" element={<SignIn setMyUser={setMyUser}myUser={myUser}/>}/>
       <Route path="/SignIn" element={<SignIn setMyUser={setMyUser}myUser={myUser}/>}/>
       <Route path="/Home" element={<Home setMyUser={setMyUser} myUser={myUser}/>}/>
       <Route path="/SignUp" element={<SignUp/>}/>

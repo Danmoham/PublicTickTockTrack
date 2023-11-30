@@ -59,13 +59,10 @@ export  function generateTimeArray() {
     let [myhours, myMinutes] = Time.split(':').map(Number);
     myhours = myhours * 60
     const myFinalTime = myhours + myMinutes
-    console.log(array)
     array.forEach(element => {
         let [elementHours, elementMinutes] = element.time.split(':').map(Number);
         elementHours = elementHours * 60
         const elementTime = elementHours + elementMinutes
-        console.log(elementTime)
-        console.log(myFinalTime)
         if (elementTime === myFinalTime){
             isThisFalsy = true
         }else if ((elementTime > myFinalTime) && (myFinalTime + duration > elementTime)){

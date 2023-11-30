@@ -77,6 +77,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser}) =>{
                 setErrorMessage("")
             }} placeholder="Enter Duration here in minutes"></input>
             <button>Submit Here</button>
+            <p>Unsure how long this will take? Click here to get a recommended time!</p>
             <p>{errorMessage}</p>
     
             </form>

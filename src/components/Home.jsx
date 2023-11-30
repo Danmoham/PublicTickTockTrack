@@ -14,7 +14,7 @@ export const Home = ({myUser,setMyUser}) =>{
     if (Object.keys(myUser).length !== 0 ){
     return (
     <div id="Header">
-        <h2>You're home</h2>
+        <h2>Today's tracking so Far!</h2>
         <p>You're signed in as: {myUser.username}</p>
         <button onClick={(event) =>{
             event.preventDefault()
