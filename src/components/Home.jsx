@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NewLogs } from "./NewLogs";
+import { CurrentLogs } from "./CurrentLogs";
 
 export const Home = ({myUser,setMyUser}) =>{
-    console.log(myUser)
+    const [userLogs,setUserLogs] = useState([])
     function getDate() {
         const today = new Date();
         const month = today.getMonth() + 1;
@@ -12,9 +13,8 @@ export const Home = ({myUser,setMyUser}) =>{
         return `${month}/${date}/${year}`;
       } 
       let date = String(new Date());
-      date = date.slice(0,16)
+      date = date.slice(0,15)
       const [currentDate, setCurrentDate] = useState(date);
-      console.log("Tue Nov 28 2023 ".length)
      
 
     if (Object.keys(myUser).length !== 0 ){
@@ -29,8 +29,9 @@ export const Home = ({myUser,setMyUser}) =>{
         <p>Today's Date: {currentDate}</p>
         <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
         <p>Time Remaining on Today is x</p>
-        <NewLogs myUser={myUser} setMyUser={setMyUser} />
-        <p>Current Logs: </p>
+        <NewLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
+        <h3>Current Logs for the day:</h3>
+        <CurrentLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
         </div>
     )
     }else{
