@@ -5,8 +5,6 @@ import { CurrentLogs } from "./CurrentLogs";
 
 export const Home = ({myUser,setMyUser}) =>{
     const [userLogs,setUserLogs] = useState([])
-    const [allLogs,setAllLogs] = useState([])
-    const [isLoading,setIsLoading] = useState("")
     const [isNewlyLogged,setIsNewlyLogged] = useState(false)
       let date = String(new Date());
       date = date.slice(0,15)

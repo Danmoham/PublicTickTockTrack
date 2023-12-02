@@ -89,3 +89,21 @@ export  function generateTimeArray() {
 
     return time12;
 }
+export function transferTodaysLogs(array,selectedDate){
+    let myArray = array.filter((item) =>{
+        return (item.Date === selectedDate)
+    })
+    myArray = myArray.sort((activity1, activity2) => {
+        const [hours1, minutes1] = activity1.Time.split(':').map(Number);
+        const [hours2, minutes2] = activity2.Time.split(':').map(Number);
+    
+        if (hours1 !== hours2) {
+          return hours1 - hours2;
+        }
+    
+        // If hours are equal, compare minutes
+        return minutes1 - minutes2;
+      });
+    
+    return myArray
+}

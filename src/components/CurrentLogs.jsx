@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { arrayRemove, doc, getDoc,updateDoc } from "firebase/firestore";
 import { convertMinutesToTime } from "../libs/functions";
 import { convertTo12HourFormat } from "../libs/functions";
+import { transferTodaysLogs } from "../libs/functions";
 
 
 export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyLogged,isNewlyLogged}) =>{
@@ -12,24 +13,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
     const durations = userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0)
     const [myDuration,setMyDuration] = useState(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
     const [isTimeLoaded,setIsTimeLoaded] = useState(false)
-function transferTodaysLogs(array,selectedDate){
-            let myArray = array.filter((item) =>{
-                return (item.Date === selectedDate)
-            })
-            myArray = myArray.sort((activity1, activity2) => {
-                const [hours1, minutes1] = activity1.Time.split(':').map(Number);
-                const [hours2, minutes2] = activity2.Time.split(':').map(Number);
-            
-                if (hours1 !== hours2) {
-                  return hours1 - hours2;
-                }
-            
-                // If hours are equal, compare minutes
-                return minutes1 - minutes2;
-              });
-            
-            return myArray
-    }
+
     /*useEffect(() =>{
         setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
     },[])
@@ -83,10 +67,6 @@ function transferTodaysLogs(array,selectedDate){
         <ul>
             {userLogs.map((log) =>{
                 let myLog = convertTo12HourFormat(log.Time)                
-                if (parseInt(myLog) < 12){
-
-                }
-                
                 return <div>
                     <li>Activity: {log.Activity}</li>
                     <li>Time This is booked in at {myLog}</li>
