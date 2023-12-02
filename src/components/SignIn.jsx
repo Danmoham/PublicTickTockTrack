@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom"
 import { collection, getDocs } from "firebase/firestore";
 export const SignIn = ({myUser,setMyUser}) =>{
     const navigate = useNavigate()
-    const [password, setPassword] = useState("");
     const [type, setType] = useState('password');   
     const [isHidden, setIsHidden] = useState("hide");
     const [myPassword,setMyPassword] = useState("")
@@ -22,12 +21,12 @@ export const SignIn = ({myUser,setMyUser}) =>{
     } 
     const handleToggle = (event) => {
         event.preventDefault()
-        if (isHidden === "hide"){
+        if (isHidden === "show"){
            setType('text')
-           setIsHidden("show")
+           setIsHidden("hide")
         } else {
            setType('password')
-           setIsHidden("hide")
+           setIsHidden("show")
     
         }
      }
@@ -46,7 +45,7 @@ export const SignIn = ({myUser,setMyUser}) =>{
             setCorrectMessage("Login Successful")
             navigate("/Home")
         }else{
-            setCorrectMessage("Incorrect Details, please try again!")
+            setCorrectMessage("Your Password or Username is incorrect! Please try again!")
         }
 
 }

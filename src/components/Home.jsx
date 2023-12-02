@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { NewLogs } from "./NewLogs";
 import { CurrentLogs } from "./CurrentLogs";
 
 export const Home = ({myUser,setMyUser}) =>{
     const [userLogs,setUserLogs] = useState([])
+    const [allLogs,setAllLogs] = useState([])
     const [isLoading,setIsLoading] = useState("")
+    const [isNewlyLogged,setIsNewlyLogged] = useState(false)
       let date = String(new Date());
       date = date.slice(0,15)
       const [currentDate, setCurrentDate] = useState(date);
-     
+     useEffect(() =>{
+
+     },[])
 
     if (Object.keys(myUser).length !== 0 ){
     return (
@@ -22,9 +26,9 @@ export const Home = ({myUser,setMyUser}) =>{
         }}>Click here to sign out</button>
         <p>Today's Date: {currentDate}</p>
         <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
-        <NewLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
+        <NewLogs userLogs={userLogs} isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
         <h3>Current Logs for the day:</h3>
-        <CurrentLogs userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
+        <CurrentLogs isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
         </div>
     )
     }else{

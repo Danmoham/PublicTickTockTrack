@@ -1,13 +1,17 @@
 import { useEffect,useState } from "react"
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { arrayRemove, doc, getDoc,updateDoc } from "firebase/firestore";
 import { convertMinutesToTime } from "../libs/functions";
+import { convertTo12HourFormat } from "../libs/functions";
 
 
-export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate}) =>{
+export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyLogged,isNewlyLogged}) =>{
     const [isLoading,setIsLoading] = useState(true)
     const [timeRemaining,setTimeRemaining] = useState("")
+    const [errorMessage,setErrorMessage] = useState("")
     const durations = userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0)
+    const [myDuration,setMyDuration] = useState(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
+    const [isTimeLoaded,setIsTimeLoaded] = useState(false)
 function transferTodaysLogs(array,selectedDate){
             let myArray = array.filter((item) =>{
                 return (item.Date === selectedDate)
@@ -26,10 +30,15 @@ function transferTodaysLogs(array,selectedDate){
             
             return myArray
     }
+    useEffect(() =>{
+        setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
+    },[])
+
     async function settingData(){
         const myData = await gettingData()
         setUserLogs(transferTodaysLogs(myData,currentDate))
-        setTimeRemaining(convertMinutesToTime(durations))    
+        setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
+        setTimeRemaining(convertMinutesToTime(myDuration))    
         setIsLoading(false)
     }
     async function gettingData(){
@@ -44,23 +53,68 @@ function transferTodaysLogs(array,selectedDate){
     const myLogs = transferTodaysLogs(myUser.logs, currentDate)
       useEffect(() =>{
         settingData()
+        setTimeRemaining(convertMinutesToTime(durations))    
+        setIsTimeLoaded(true)
       
        
     },[isLoading])
+
+    useEffect(() =>{
+        if (isNewlyLogged){
+            setIsLoading(true)
+            console.log(isNewlyLogged)
+            settingData()
+            console.log(myDuration)
+           // setTimeRemaining(convertMinutesToTime(myDuration))    
+            setErrorMessage("")
+            setIsNewlyLogged(false)
+            setIsLoading(false)
+        }
+    },[isNewlyLogged])
 
     if(!isLoading){
     return <div>
         <p>Time Remaining: {timeRemaining}</p>
         <ul>
             {userLogs.map((log) =>{
+                let myLog = convertTo12HourFormat(log.Time)                
+                if (parseInt(myLog) < 12){
+
+                }
+                
                 return <div>
                     <li>Activity: {log.Activity}</li>
-                    <li>Time This is booked in: {log.Time}</li>
+                    <li>Time This is booked in at {myLog}</li>
                     <li> Duration: {log.Duration} Minutes</li>
-                    <button>Delete Entry</button>
+                    <button onClick={async (event) =>{
+                        event.preventDefault()
+                        const docRef = doc(db, "Users", myUser.username)
+                        let date = String(new Date());
+                        date = date.slice(0,15)
+                        let deleteLog = {
+                            Time: log.Time,
+                            Duration:log.Duration,
+                            Activity: log.Activity,
+                            Date: date
+                        }
+                        const data = {
+                            logs : arrayRemove(deleteLog)
+                        }
+                        try{
+                            await updateDoc(docRef,data)
+                            }catch(e){
+                                setErrorMessage("There has been a DB error, please try again later")
+                            }
+                        setIsNewlyLogged(true)
+                        console.log(log.Activity)
+                        console.log(log.Time)
+                        console.log(log.Duration)
+
+                        }}>Delete Entry</button>
                 </div>
             })}
         </ul>
+        <p>{errorMessage}</p>
     </div>
     }else{
         return <div>
