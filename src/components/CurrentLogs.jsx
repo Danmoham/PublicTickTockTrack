@@ -30,15 +30,21 @@ function transferTodaysLogs(array,selectedDate){
             
             return myArray
     }
-    useEffect(() =>{
+    /*useEffect(() =>{
         setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
     },[])
+    */
+    async function setDuration (){
+        await setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
+
+   }
 
     async function settingData(){
         const myData = await gettingData()
-        setUserLogs(transferTodaysLogs(myData,currentDate))
-        setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
-        setTimeRemaining(convertMinutesToTime(myDuration))    
+        let myLogs = (transferTodaysLogs(myData,currentDate))
+        await setUserLogs(myLogs)
+        let finalDuration = myLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0)
+        setTimeRemaining(convertMinutesToTime(finalDuration))    
         setIsLoading(false)
     }
     async function gettingData(){
@@ -52,6 +58,7 @@ function transferTodaysLogs(array,selectedDate){
     }
     const myLogs = transferTodaysLogs(myUser.logs, currentDate)
       useEffect(() =>{
+        
         settingData()
         setTimeRemaining(convertMinutesToTime(durations))    
         setIsTimeLoaded(true)
@@ -62,10 +69,8 @@ function transferTodaysLogs(array,selectedDate){
     useEffect(() =>{
         if (isNewlyLogged){
             setIsLoading(true)
-            console.log(isNewlyLogged)
             settingData()
-            console.log(myDuration)
-           // setTimeRemaining(convertMinutesToTime(myDuration))    
+            //setTimeRemaining(convertMinutesToTime(myDuration))    
             setErrorMessage("")
             setIsNewlyLogged(false)
             setIsLoading(false)
@@ -106,10 +111,6 @@ function transferTodaysLogs(array,selectedDate){
                                 setErrorMessage("There has been a DB error, please try again later")
                             }
                         setIsNewlyLogged(true)
-                        console.log(log.Activity)
-                        console.log(log.Time)
-                        console.log(log.Duration)
-
                         }}>Delete Entry</button>
                 </div>
             })}
