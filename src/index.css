@@ -84,6 +84,7 @@ h1{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1000px;
  
   }
 
@@ -184,4 +185,9 @@ h1{
 #sign-in-image{
     display: flex;
 justify-content: center;
+}
+#centre-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

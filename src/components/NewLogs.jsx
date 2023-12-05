@@ -133,7 +133,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 event.preventDefault()
             setIsLogging(false)
             setActivity("")
-            setTime("")
+            setTime("00:00")
             setDuration()
             setErrorMessage("")
             setCorrectMessage("")

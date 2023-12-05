@@ -52,7 +52,7 @@ export const SignIn = ({myUser,setMyUser}) =>{
 
 
     return <div>
-                <h2 id="overview" className="align-text">Overview</h2>
+                <b><h2 id="overview" className="align-text">Overview</h2></b>
                 <p className="align-text">A Fun web application you can use to track your daily activity on each day!</p>
                 <p className="align-text">You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
         <h2 className="align-text">Enter sign in details below</h2><div>
@@ -70,7 +70,7 @@ export const SignIn = ({myUser,setMyUser}) =>{
                 setMyPassword(event.target.value)
                 setCorrectMessage("")
             }} value={myPassword} placeholder="Enter password here"></input>
-              <button className="button" class="flex justify-around items-center" onClick={handleToggle}>{isHidden}
+              <button className="button" onClick={handleToggle}>{isHidden}
               </button>
         
             <button className="button">Submit Here</button>

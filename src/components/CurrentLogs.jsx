@@ -63,6 +63,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
     }else if(!isLoading){
     return <div>
         <b><p className="align-text">Time Remaining: {timeRemaining}</p></b>
+        <div id="centre-div">
         <ul className="my-logs">
             {userLogs.map((log) =>{
                 let myLog = convertTo12HourFormat(log.Time)                
@@ -94,6 +95,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
                 </div>
             })}
         </ul>
+        </div>
         <p>{errorMessage}</p>
     </div>
     }else{
