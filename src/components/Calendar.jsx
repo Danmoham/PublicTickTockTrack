@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import 'react-calendar/dist/Calendar.css';
+
 
 export const MyCalendar = ({myUser,setMyUser}) =>{
     const navigate = useNavigate()
@@ -22,10 +24,12 @@ export const MyCalendar = ({myUser,setMyUser}) =>{
             setMyUser({})
         }}>Sign Out</button>
         </div>
-        <h2>Calendar</h2>
-    <p><Link to={`/day/${yesterday}`}> Yesterday </Link> | <Link to="/home">Today</Link> | <Link to="/Calendar">Full Calendar</Link></p>
-    <p>Select a date to see what you have tracked on that day!</p>
+        <h2 className='align-text'>Calendar</h2>
+        <h4 className='align-text' id="nav-section"> <Link to={`/day/${yesterday}`}> Yesterday</Link> | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></h4>
+    <b><p className='align-text'>Select a date to see what you have tracked on that day!</p></b>
+    <div id="cal-div">
           <Calendar onChange={onChange} onClickDay={(event) => setIsClicked(true)} value={value} />
+          </div>
 
     </div>
 }

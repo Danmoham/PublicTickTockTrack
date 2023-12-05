@@ -87,7 +87,10 @@ h1{
     max-width: 1000px;
  
   }
-
+  .react-calendar__tile--active {
+    /* background: #006edc; */
+    color: black;
+}
   .my-log{
     padding: 20px;
   }
@@ -190,4 +193,13 @@ justify-content: center;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#cal-div{
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+img{
+  max-height: 300px;
+  max-width: auto;
 }

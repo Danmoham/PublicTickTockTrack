@@ -7,7 +7,7 @@ import { collection, getDocs } from "firebase/firestore";
 export const SignIn = ({myUser,setMyUser}) =>{
     const navigate = useNavigate()
     const [type, setType] = useState('password');   
-    const [isHidden, setIsHidden] = useState("hide");
+    const [isHidden, setIsHidden] = useState("show");
     const [myPassword,setMyPassword] = useState("")
     const [myUserName, setMyUsername] = useState("")
     const [correctMessage,setCorrectMessage] = useState("")
