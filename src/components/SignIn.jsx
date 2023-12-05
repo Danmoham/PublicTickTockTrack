@@ -52,31 +52,34 @@ export const SignIn = ({myUser,setMyUser}) =>{
 
 
     return <div>
-                <h2>Overview</h2>
-                <p>A Fun web application you can use to track your daily activity on each day!</p>
-                <p>You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
-        <h2>Enter sign in details below</h2><div>
-        <form onSubmit={dataCheck}>
+                <h2 id="overview" className="align-text">Overview</h2>
+                <p className="align-text">A Fun web application you can use to track your daily activity on each day!</p>
+                <p className="align-text">You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
+        <h2 className="align-text">Enter sign in details below</h2><div>
+        <form id="sign-in" className="align-text" onSubmit={dataCheck}>
             <label htmlFor="username">UserName:</label>
-            <input onChange={(event) =>{
+            <input id="form" className=" margin-input" onChange={(event) =>{
                 event.preventDefault()
                 setMyUsername(event.target.value)
                 setCorrectMessage("")
-            }} value={myUserName} className="username" placeholder="Enter username here">
+            }} value={myUserName} placeholder="Enter username here">
             </input>
             <label htmlFor="password">Enter Password Here</label>
-            <input type={type} onChange={(event) =>{
+            <input id="form" className=" margin-input" type={type} onChange={(event) =>{
                 event.preventDefault()
                 setMyPassword(event.target.value)
                 setCorrectMessage("")
-            }} value={myPassword} placeholder="Enter password here" className="password"></input>
-              <button class="flex justify-around items-center" onClick={handleToggle}>{isHidden}
+            }} value={myPassword} placeholder="Enter password here"></input>
+              <button className="button" class="flex justify-around items-center" onClick={handleToggle}>{isHidden}
               </button>
         
-            <button>Submit Here</button>
+            <button className="button">Submit Here</button>
         </form>
-        <p>{correctMessage}</p>
-        <Link to="/SignUp"><p>Not Signed up? Click here to sign up</p></Link>
+        <p className="align-text">{correctMessage}</p>
+        <Link to="/SignUp"><p className="align-text">Not Signed up? Click here to sign up</p></Link>
+        <div id="sign-in-image">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/001/105/579/small/time-management-concept-illustration.jpg"/>
+            </div>
     </div>
     </div>
 }

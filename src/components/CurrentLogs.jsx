@@ -14,10 +14,6 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
     const [myDuration,setMyDuration] = useState(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
     const [isTimeLoaded,setIsTimeLoaded] = useState(false)
 
-    /*useEffect(() =>{
-        setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
-    },[])
-    */
     async function setDuration (){
         await setMyDuration(userLogs.map((user) =>parseInt(user.Duration)).reduce((a,b) => a+b,0))
 
@@ -61,17 +57,20 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
         }
     },[isNewlyLogged])
 
-    if(!isLoading){
+    if (!isLoading && userLogs.length === 0){
+        return <div><p className="align-text">You do not currently have any activities Logged, once activities are added they will come up here!</p></div>
+
+    }else if(!isLoading){
     return <div>
-        <p>Time Remaining: {timeRemaining}</p>
-        <ul>
+        <b><p className="align-text">Time Remaining: {timeRemaining}</p></b>
+        <ul className="my-logs">
             {userLogs.map((log) =>{
                 let myLog = convertTo12HourFormat(log.Time)                
-                return <div>
+                return <div className="my-log">
                     <li>Activity: {log.Activity}</li>
                     <li>Time This is booked in at {myLog}</li>
                     <li> Duration: {log.Duration} Minutes</li>
-                    <button onClick={async (event) =>{
+                    <button className="delete-button" onClick={async (event) =>{
                         event.preventDefault()
                         const docRef = doc(db, "Users", myUser.username)
                         let date = String(new Date());

@@ -7,20 +7,23 @@ export const MyCalendar = ({myUser,setMyUser}) =>{
     const navigate = useNavigate()
     const [value, onChange] = useState(new Date());
     const [isClicked, setIsClicked] = useState(false)
-    console.log(isClicked)
-    console.log(value)
+    let yesterday = new Date(Date.now() - 86400000)
     useEffect(() =>{
         if (isClicked){
             navigate(`/day/${value}`)
         }
     },[isClicked])
     if (Object.keys(myUser).length !== 0 ){
-    return <div><h2>Calendar</h2>
-       <button onClick={(event) =>{
+    return <div>
+        <div id="flexing">
+       <b> <p className="margin-input">You're signed in as: {myUser.username}</p></b>
+        <button className="button" onClick={(event) =>{
             event.preventDefault()
             setMyUser({})
-        }}>Click here to sign out</button>
-    <p>Yesterday | <Link to="/home">Today</Link> | <Link to="/Calendar">Full Calendar</Link></p>
+        }}>Sign Out</button>
+        </div>
+        <h2>Calendar</h2>
+    <p><Link to={`/day/${yesterday}`}> Yesterday </Link> | <Link to="/home">Today</Link> | <Link to="/Calendar">Full Calendar</Link></p>
     <p>Select a date to see what you have tracked on that day!</p>
           <Calendar onChange={onChange} onClickDay={(event) => setIsClicked(true)} value={value} />
 

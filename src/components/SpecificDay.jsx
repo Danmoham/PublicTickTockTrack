@@ -10,6 +10,7 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
     const [isLoading,setIsLoading] = useState(true)
     let {my_day} = useParams()
     let date = my_day.slice(0,15)
+    let yesterday = new Date(Date.now() - 86400000)
 
     async function settingData(){
         const myData = await gettingData()
@@ -55,15 +56,17 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
         <p>Loading....</p>
         </div>
     }else if (my_day.length === 55 && !isLoading){
-        return <div><p>{my_day}</p>
-        <p>You're signed in as: {myUser.username}</p>
-        <button onClick={(event) =>{
+        return <div>
+        <div id="flexing">
+       <b> <p className="margin-input">You're signed in as: {myUser.username}</p></b>
+        <button className="button" onClick={(event) =>{
             event.preventDefault()
             setMyUser({})
-        }}>Click here to sign out</button>
+        }}>Sign Out</button>
+        </div>
         <p>This Date {my_day}</p>
-        <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
-                    <p>Your Logs on this Day</p>
+        <p><Link to={`/day/${yesterday}`}> Yesterday </Link> | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
+                    <h4>The activities you logged on {date}</h4>
                     <ul>
                     {userLogs.map((log) =>{
                         let myLog = convertTo12HourFormat(log.Time)
@@ -71,6 +74,7 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
                             <li>Activity: {log.Activity}</li>
                             <li>The time this is booked in {myLog}</li>
                             <li>Duration: {log.Duration} Minutes</li>
+                            <br></br>
                         </div>
                     })
                     }

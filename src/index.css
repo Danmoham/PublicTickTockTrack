@@ -1,3 +1,4 @@
+
 *{ 
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color:#fff;
@@ -8,4 +9,179 @@
 }
 h1{
     text-align: center;
+    margin-top: 40px;
+    font-weight: 800;
+}
+.align-text{
+    text-align: center;
+}
+.margin-input{
+    margin: 10px;
+}
+
+#overview{
+    margin-top: 4vh;
+}
+.button-align{
+    display: flex;
+    justify-content: center;
+}
+.flex-button{
+    display: flex;
+    justify-content: right;
+    margin: 1%;
+
+}
+#flexing{
+    display: flex;
+    justify-content: right;
+    margin: 40px;
+}
+.button {
+    align-items: center;
+    padding: 10px 15px;
+    gap: 15px;
+    margin: 3px;
+    background-color: #007ACC;
+    outline: 3px #007ACC solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+  }
+  
+  .button {
+    color: white;
+    font-weight: 700;
+    font-size: 1em;
+    transition: 400ms;
+  }
+  
+  .button svg path {
+    transition: 400ms;
+  }
+  
+  .button:hover {
+    background-color: transparent;
+  }
+  
+  .button:hover {
+    color: #007ACC;
+  }
+  
+  .button:hover svg path {
+    fill: #007ACC;
+  }
+  #adding-log{
+  
+        display: flex;
+        justify-content: center;
+        margin: 1%;
+  }
+  .my-logs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+ 
+  }
+
+  .my-log{
+    padding: 20px;
+  }
+  #nav-section{
+    padding: 20px;
+  }
+  .delete-button {
+    align-items: center;
+    padding: 10px 15px;
+    gap: 15px;
+    margin: 3px;
+    background-color: #9A2A2A;
+    outline: 3px #9A2A2A    solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+  }
+  
+  .delete-button {
+    color: white;
+    font-weight: 700;
+    font-size: 1em;
+    transition: 400ms;
+  }
+  
+  .delete-button svg path {
+    transition: 400ms;
+  }
+  
+  .delete-button:hover {
+    background-color: transparent;
+  }
+  
+  .delete-button:hover {
+    color: #9A2A2A    ;
+  }
+  
+  .delete-button:hover svg path {
+    fill: #007ACC;
+  }
+
+  #adding-form{
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+  }
+  .cancel-log{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+#seperators{
+    margin: 5px;
+    display: flex;
+    align-items: center;
+}
+#cancel-form{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+  }
+#form{
+    display: auto;
+    width: auto;
+}
+
+.select{
+        align-items: center;
+        padding: 10px 15px;
+        gap: 15px;
+        margin: 3px;
+        background-color: #007ACC;
+        color: white ;
+        outline: 3px #007ACC solid;
+        outline-offset: -3px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: 400ms;
+      
+}
+.select:hover{
+    color: #007ACC;
+    background-color: white;
+
+}
+#add-button{
+    margin-left: 20px;
+}
+#duration-form{
+    width: 150px;
+}
+#sign-in-image{
+    display: flex;
+justify-content: center;
 }

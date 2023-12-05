@@ -9,6 +9,7 @@ export const Home = ({myUser,setMyUser}) =>{
       let date = String(new Date());
       date = date.slice(0,15)
       const [currentDate, setCurrentDate] = useState(date);
+      let yesterday = new Date(Date.now() - 86400000)
      useEffect(() =>{
 
      },[])
@@ -16,16 +17,20 @@ export const Home = ({myUser,setMyUser}) =>{
     if (Object.keys(myUser).length !== 0 ){
     return (
     <div id="Header">
-        <h2>Today's tracking so Far!</h2>
-        <p>You're signed in as: {myUser.username}</p>
-        <button onClick={(event) =>{
+         <div id="flexing">
+       <b> <p className="margin-input">You're signed in as: {myUser.username}</p></b>
+        <button className="button" onClick={(event) =>{
             event.preventDefault()
             setMyUser({})
-        }}>Click here to sign out</button>
-        <p>Today's Date: {currentDate}</p>
-        <p>Yesterday | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></p>
+        }}>Sign Out</button>
+        </div>
+        <h2 className="align-text">Today's tracking so Far!</h2>
+        <div className="align-text">
+        <b><p className="margin-input">Today's Date: {currentDate}</p></b>
+        <h4 id="nav-section"> <Link to={`/day/${yesterday}`}> Yesterday</Link> | <Link to="/home">Today</Link>  | <Link to="/Calendar">Full Calendar</Link></h4>
+        </div>
         <NewLogs userLogs={userLogs} isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
-        <h3>Current Logs for the day:</h3>
+        <h3 className="align-text">Current Logs for the day:</h3>
         <CurrentLogs isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
         </div>
     )

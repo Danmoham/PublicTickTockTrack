@@ -66,24 +66,42 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
      },[time,activity]) 
 
     if (!isLogging){
-    return (<div><button onClick={(event) =>{
+    return (<div>
+        <div id="adding-log">
+        <b><p className="margin-input">Click here to add a new log</p></b>
+        <button className="button" onClick={(event) =>{
         event.preventDefault()
         setIsLogging(true)
     }}>Add New Log</button>
-    <p>{correctMessage}</p>
+    </div>
+    <p className="align-text">{correctMessage}</p>
     </div>
     )
     }else{
         return (<div>
-            <form onSubmit={checkingAdding}><label>Activity: </label>
-            <input value={activity} onChange={(event) =>{
+            <form className="cancel-log" onSubmit={checkingAdding}>
+                <div id="seperators">
+                <label className="margin-input"> Activity: </label>
+            <input id="form" className="form-control" value={activity} onChange={(event) =>{
                 event.preventDefault()
                 setActivity(event.target.value)
                 setErrorMessage("")
                 setCorrectMessage("")
             }} placeholder="Type Activity here here"></input>
-            <label>Activity Time: </label>
-            <select key={time} value={time} onChange={(event) =>{
+            </div>
+           
+            <div id="seperators">
+            <label className="margin-input">Duration(minutes): </label>
+            <input id="duration-form" className="form-control" value={duration} onChange={(event) =>{
+                event.preventDefault()
+                setDuration((event.target.value))
+                setErrorMessage("")
+                setCorrectMessage("")
+            }} placeholder="Duration"></input>
+            </div>
+            <div id="seperators">
+            <label className="margin-input">Activity Time: </label>
+            <select className="select" key={time} value={time} onChange={(event) =>{
                 event.preventDefault()
                 setTime(event.target.value)
                 setErrorMessage("")
@@ -102,19 +120,16 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 }
                })}
             </select>
-            <label>Activity Duration(minutes): </label>
-            <input value={duration} onChange={(event) =>{
-                event.preventDefault()
-                setDuration((event.target.value))
-                setErrorMessage("")
-                setCorrectMessage("")
-            }} placeholder="Enter Duration here in minutes"></input>
-            <button>Submit Here</button>
-            <p>Unsure how long this will take? Click here to get a recommended time!</p>
-            <p>{errorMessage}</p>
-    
+            </div>
+            <div id="seperators">
+            <button id="add-button" className="button">Submit Here</button>
+            </div>
             </form>
-            <button onClick={(event) =>{
+           <b> <p className="align-text">Unsure how long this will take? Click here to get a recommended time!</p></b>
+            <p className="align-text">{errorMessage}</p>
+                <div id="cancel-form">
+                <p className="margin-input align-text">Want to cancel the Log?</p>
+            <button className="align-text delete-button" onClick={(event) =>{
                 event.preventDefault()
             setIsLogging(false)
             setActivity("")
@@ -122,6 +137,9 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             setDuration()
             setErrorMessage("")
             setCorrectMessage("")
-        }}>Cancel Log</button></div>)
+        }}>Click Here</button>
+        </div>
+        
+        </div>)
     }
 }
