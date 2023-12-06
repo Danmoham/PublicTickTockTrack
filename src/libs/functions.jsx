@@ -107,3 +107,4 @@ export function transferTodaysLogs(array,selectedDate){
     
     return myArray
 }
+

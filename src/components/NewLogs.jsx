@@ -4,8 +4,11 @@ import { generateTimeArray } from "../libs/functions"
 import { checkingSubmitTime } from "../libs/functions"
 import { updateDoc,doc,arrayUnion } from "firebase/firestore"
 import { db } from "../firebase"
+import APIKEY from "../libs/config"
+import OpenAI from "openai"
 
 export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,isNewlyLogged}) =>{
+   
     const timeArray = generateTimeArray();
     const myTimes = userLogs.map((user) =>{
         return {time: user.Time, duration: user.Duration}
@@ -19,8 +22,35 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     const [duration,setDuration] = useState("")
     const [errorMessage,setErrorMessage] = useState("")
     const [correctMessage,setCorrectMessage] = useState("")
+    const [aiActivityTime,setAiActivityTime] = useState("")
+    const [hasBeenFound,setHasBeenFound] = useState(false)
     // we can do a database check to check the day, if day is same, check all times. If none of them overlap use the generateTimeArray to add in the relevant times
+    async function callOpenAiAPI(){
+        const openai = new OpenAI({
+            apiKey: APIKEY,
+            dangerouslyAllowBrowser: true 
+        })
+        const assistant = await openai.beta.assistants.retrieve("asst_xwdt8zEsF6bQOCr7iH4UKUpM")
+        const thread = await openai.beta.threads.create()
+        const message = await openai.beta.threads.messages.create(thread.id,{role: "user",
+        content: `How long does it take the average person to eat breakfast`
+    })
+
+    const run = await openai.beta.threads.runs.create(thread.id, {
+        assistant_id: assistant.id,
+    }) 
+    console.log(run)
+    const retrieverun = await openai.beta.threads.runs.retrieve(thread.id,run.id)
+    console.log(retrieverun)
+    // only when retrieverun.status is true proceed.
+    
+    const messages = await openai.beta.threads.messages.list(thread.id)
+    console.log(messages)
+   
+   
+}
   
+   // callOpenAiAPI()
       
       async function checkingAdding(event){
         event.preventDefault()
@@ -112,7 +142,6 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 if (myTimes.includes(each)){
                     return <option disabled>{each}</option>
                 }else if (isTaken(each,myTimes)){
-                    // Not Working - To Fix!!
                     return <option disabled>{each}</option> 
                 }
                 else{
@@ -125,7 +154,14 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             <button id="add-button" className="button">Submit Here</button>
             </div>
             </form>
-           <b> <p className="align-text">Unsure how long this will take? Click here to get a recommended time!</p></b>
+            <div id="time-generate">
+           <b> <p className="align-text margin-input">Unsure how long this will take?</p></b><button onClick={(event) =>{
+            console.log(event)
+           }}   className="button">Click to recommend a time </button>
+           </div>
+           {aiActivityTime !== "" ? <p>You have been suggested {aiActivityTime} based on your activity {activity}</p>
+           : null
+           }
             <p className="align-text">{errorMessage}</p>
                 <div id="cancel-form">
                 <p className="margin-input align-text">Want to cancel the Log?</p>
