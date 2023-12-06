@@ -208,3 +208,7 @@ img{
   justify-content: center;
   margin: 50px;
 }
+#my-error{
+  margin-top: 30px;
+  text-align: center;
+}

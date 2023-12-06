@@ -24,6 +24,8 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     const [correctMessage,setCorrectMessage] = useState("")
     const [aiActivityTime,setAiActivityTime] = useState("")
     const [hasBeenFound,setHasBeenFound] = useState(false)
+    const [hasClicked,setHasClicked] = useState(false)
+    
     // we can do a database check to check the day, if day is same, check all times. If none of them overlap use the generateTimeArray to add in the relevant times
     async function callOpenAiAPI(){
         const openai = new OpenAI({
@@ -33,25 +35,28 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
         const assistant = await openai.beta.assistants.retrieve("asst_xwdt8zEsF6bQOCr7iH4UKUpM")
         const thread = await openai.beta.threads.create()
         const message = await openai.beta.threads.messages.create(thread.id,{role: "user",
-        content: `How long does it take the average person to eat breakfast`
+        content: `How long does it take the average person to ${activity}`
     })
 
-    const run = await openai.beta.threads.runs.create(thread.id, {
+    let run = await openai.beta.threads.runs.create(thread.id, {
         assistant_id: assistant.id,
     }) 
-    console.log(run)
-    const retrieverun = await openai.beta.threads.runs.retrieve(thread.id,run.id)
-    console.log(retrieverun)
+    while (run.status !== "completed"){
+         run = await openai.beta.threads.runs.retrieve(thread.id,run.id)
+        console.log(run.status)
+    }
+    
     // only when retrieverun.status is true proceed.
     
     const messages = await openai.beta.threads.messages.list(thread.id)
-    console.log(messages)
+        setAiActivityTime(messages.data[0].content[0].text.value)
+        setHasBeenFound(true)
+
+    
    
    
 }
-  
-   // callOpenAiAPI()
-      
+        
       async function checkingAdding(event){
         event.preventDefault()
         if (activity.split(" ").join("").length === 0){
@@ -108,7 +113,9 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     </div>
     )
     }else{
-        return (<div>
+        return (
+        <div>
+            <>
             <form className="cancel-log" onSubmit={checkingAdding}>
                 <div id="seperators">
                 <label className="margin-input"> Activity: </label>
@@ -136,6 +143,8 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 setTime(event.target.value)
                 setErrorMessage("")
                 setCorrectMessage("")
+                setHasClicked(false)
+                setHasBeenFound(false)
             }}>
                 <option disabled>Select Time</option>
                {timeArray.map((each) =>{
@@ -154,28 +163,72 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             <button id="add-button" className="button">Submit Here</button>
             </div>
             </form>
-            <div id="time-generate">
-           <b> <p className="align-text margin-input">Unsure how long this will take?</p></b><button onClick={(event) =>{
-            console.log(event)
-           }}   className="button">Click to recommend a time </button>
-           </div>
-           {aiActivityTime !== "" ? <p>You have been suggested {aiActivityTime} based on your activity {activity}</p>
-           : null
-           }
-            <p className="align-text">{errorMessage}</p>
-                <div id="cancel-form">
-                <p className="margin-input align-text">Want to cancel the Log?</p>
-            <button className="align-text delete-button" onClick={(event) =>{
-                event.preventDefault()
-            setIsLogging(false)
-            setActivity("")
-            setTime("00:00")
-            setDuration()
-            setErrorMessage("")
-            setCorrectMessage("")
-        }}>Click Here</button>
-        </div>
+            </>
+            <div>  
+      
+  {hasClicked ? (
+    // Content to display when hasClicked is true
+    <>
+    {!hasBeenFound ? (
+   <b> <p className="align-text margin-input">Loading a time from our generated AI, please wait.....</p></b>
+    ) : (
+        <b><p className="align-text">Based on our generative AI predictions, {activity} should take on average {aiActivityTime} to complete.</p></b>
+    )
+    }
+   </>
+  ) : (
+    // Content to display when hasClicked is false
+    <>
+        <p id="my-error">{errorMessage}</p>
+       <b><p className="align-text">When using generative AI, please be very specific with your prompts. E.G Reading 20 pages of a book.</p></b>
+
+    <div id="time-generate">
+    <button
+      onClick={(event) => {
+        if (activity.length > 0){
+            setHasClicked(true);
+            callOpenAiAPI().then((data) =>{
+                setHasBeenFound(true)
+            })
+            .catch((err) =>{
+                console.log(err)
+                setErrorMessage("There has been an error fetching your request, try again later")
+            })
+
+        }else{
+            setErrorMessage("Please type in a title above for the Activity you want a recommendation for")
+        }
+      }}
+      className="button"
+    >
+      Click to get a recommended time
+    </button>
+    </div>
+    </>
+  )}
+</div>
+<div id="cancel-form">
+  <p className="margin-input align-text">Want to cancel the Log?</p>
+  <button
+    className="align-text delete-button"
+    onClick={(event) => {
+      event.preventDefault();
+      setIsLogging(false);
+      setActivity("");
+      setTime("00:00");
+      setDuration();
+      setErrorMessage("");
+      setCorrectMessage("");
+      setHasClicked(false)
+      setHasBeenFound(false)
+    }}
+  >
+    Click Here
+  </button>
+</div>
+<p className="align-text">{errorMessage}</p>
         
         </div>)
+
     }
 }
