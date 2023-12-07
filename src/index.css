@@ -17,6 +17,7 @@ h1{
     text-align: center;
     margin-top: 40px;
     font-weight: 800;
+    font-size: 35px;
     margin-bottom: 50px;
 }
 .align-text{
@@ -28,6 +29,7 @@ h1{
 
 #overview{
     margin-top: 4vh;
+    font-weight: 800;
 }
 .button-align{
     display: flex;
@@ -54,6 +56,7 @@ h1{
   }
   h1{
     margin-bottom: 20px;
+    font-size: 40px;
   }
 
   #nav-button{
@@ -270,6 +273,7 @@ img{
 #my-error{
   margin-top: 30px;
   text-align: center;
+  color: #9A2A2A;
 }
 .activity{
   font-weight: 700;

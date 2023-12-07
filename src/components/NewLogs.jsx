@@ -235,7 +235,6 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     Click Here
   </button>
 </div>
-<p className="align-text">{errorMessage}</p>
         
         </div>)
 
