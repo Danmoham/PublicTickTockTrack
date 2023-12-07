@@ -11,7 +11,7 @@ font-family: 'Courier New', Courier, monospace;
 
 #header{
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 h1{
     text-align: center;
@@ -41,15 +41,19 @@ h1{
 }
 #flexing{
     display: flex;
-    justify-content: right;
+    justify-content: left;
     margin: 40px;
+    margin-left: 35%;
 }
 @media only screen and (min-width: 800px) {
   #flexing{
-    margin-top: 200px;
+    display: flex;
+    margin-left: 2.5%;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
   h1{
-    margin-bottom: 70px;
+    margin-bottom: 20px;
   }
 
   #nav-button{
@@ -293,6 +297,7 @@ p{
 }
 #bordering-sign-in{
   max-width: 1000px;
+  padding: 10px;
 }
 #sign-up-divs{
   padding: 20px;
@@ -311,4 +316,16 @@ p{
 }
 #small-p{
   font-size: 12px;
+  padding: 10px;
+}
+#small-div{
+  max-width: 1000px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#margin-div{
+  margin: 20px;
+}
+#submit-log{
+  margin: 20px;
 }

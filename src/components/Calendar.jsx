@@ -17,8 +17,13 @@ export const MyCalendar = ({myUser,setMyUser}) =>{
     },[isClicked])
     if (Object.keys(myUser).length !== 0 ){
     return <div>
-     
-        
+                <div id="flexing">
+        <button className="button" onClick={(event) =>{
+            event.preventDefault()
+            setMyUser({})
+        }}>Sign Out</button>
+        </div>
+
         <div className='align-text' id="nav-bar">
          <Link to={`/day/${yesterday}`}> <button id="nav-button" className="button">Yesterday</button></Link>   <Link to="/home"><button id="nav-button" className="button">Today</button></Link>    <Link to="/Calendar"><button id="nav-button"className="button">Calendar</button></Link>
         </div>           <h2 className='align-text'>{myUser.username}'s Calendar</h2>
@@ -27,12 +32,6 @@ export const MyCalendar = ({myUser,setMyUser}) =>{
 
           <Calendar onChange={onChange} onClickDay={(event) => setIsClicked(true)} value={value} />
           </div>
-          <div id="flexing">
-        <button className="button" onClick={(event) =>{
-            event.preventDefault()
-            setMyUser({})
-        }}>Sign Out</button>
-        </div>
     </div>
 }
 else{

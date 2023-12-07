@@ -77,13 +77,20 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
         </div>
     }else if (my_day.length === 55 && !isLoading && userLogs.length > 0){
         return <div>
+                       <div id="flexing">
+        <button className="button" onClick={(event) =>{
+            event.preventDefault()
+            setMyUser({})
+        }}>Sign Out</button>
+        </div>
+
 <div className='align-text' id="nav-bar">
          <button onClick={(event) =>{
             event.preventDefault()
             setIsLoading(true)
             navigate(`/day/${yesterday}`)
          }} id="nav-button" className="button">Yesterday</button>   <Link to="/home"><button id="nav-button" className="button">Today</button></Link>    <Link to="/Calendar"><button id="nav-button"className="button">Calendar</button></Link></div>                       
-        <h4 className="align-text">{myUser.username}'s activities logged on {date}</h4>
+        <h3 id="margin-p" className="align-text">{myUser.username}'s activities logged on {date}</h3>
        <b><p className="align-text">You finished this day with {hours} hours and {minutes} minutes remaining.</p></b>
                     <div id="centre-div">               
                     <ul className="my-logs">
@@ -103,16 +110,17 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
                     }
                     </ul>
                     </div>
-                    <div id="flexing">
+         
+        </div>
+}else if (my_day.length === 55 && userLogs.length === 0 && !isLoading && isuserLogsSet){
+    return <div>
+                   <div id="flexing">
         <button className="button" onClick={(event) =>{
             event.preventDefault()
             setMyUser({})
         }}>Sign Out</button>
         </div>
 
-        </div>
-}else if (my_day.length === 55 && userLogs.length === 0 && !isLoading && isuserLogsSet){
-    return <div>
         <div className='align-text' id="nav-bar">
 
   <button onClick={(event) =>{
@@ -126,10 +134,7 @@ export const SpecificDay = ({setMyUser,myUser}) =>{
                     <img id="img" src="https://static.vecteezy.com/system/resources/previews/009/687/647/original/yellow-sad-face-emoji-file-png.png"/>
                     </div>
                     <div id="flexing">
-    <button className="button" onClick={(event) =>{
-        event.preventDefault()
-        setMyUser({})
-    }}>Sign Out</button>
+    
     </div>
     </div>
   

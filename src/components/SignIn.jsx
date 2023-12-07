@@ -59,16 +59,18 @@ export const SignIn = ({myUser,setMyUser}) =>{
                 <p className="align-text">A Fun web application you can use to track your daily activity on each day! You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
                 </div>
                 </div>
-        <h2 className="align-text">Enter sign in details below</h2><div>
+        <h3 className="align-text">Enter sign in details below</h3><div>
         <form id="sign-in" className="align-text" onSubmit={dataCheck}>
-            <label htmlFor="username">UserName:</label>
+            <div id="margin-div">     
+               <label htmlFor="username">UserName:</label>
             <input id="form" className=" margin-input" onChange={(event) =>{
                 event.preventDefault()
                 setMyUsername(event.target.value)
                 setCorrectMessage("")
             }} value={myUserName} placeholder="Enter username here">
             </input>
-            <div>
+            </div>
+            <div id="margin-div">
             <label htmlFor="password">Password: </label>
             <input id="form" className=" margin-input" type={type} onChange={(event) =>{
                 event.preventDefault()
@@ -79,7 +81,7 @@ export const SignIn = ({myUser,setMyUser}) =>{
               <button className="button" onClick={handleToggle}>{isHidden}
               </button>
         
-            <button className="button">Submit Here</button>
+            <button id="submit-log" className="button">Submit Here</button>
         </form>
         <p className="align-text">{correctMessage}</p>
         <Link to="/SignUp"><p className="align-text">Not Signed up? Click here to sign up</p></Link>

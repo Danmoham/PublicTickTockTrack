@@ -17,7 +17,12 @@ export const Home = ({myUser,setMyUser}) =>{
     if (Object.keys(myUser).length !== 0 ){
     return (
     <div id="Header">
-       
+          <div id="flexing">
+        <button className="button" onClick={(event) =>{
+            event.preventDefault()
+            setMyUser({})
+        }}>Sign Out</button>
+        </div>
         <div className="align-text">
         <div id="nav-bar">
          <Link to={`/day/${yesterday}`}> <button id="nav-button" className="button">Yesterday</button></Link>   <Link to="/home"><button id="nav-button" className="button">Today</button></Link>    <Link to="/Calendar"><button id="nav-button"className="button">Calendar</button></Link>
@@ -30,12 +35,7 @@ export const Home = ({myUser,setMyUser}) =>{
         <NewLogs userLogs={userLogs} isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} setUserLogs={setUserLogs} myUser={myUser} setMyUser={setMyUser} />
         <h3 className="align-text">Current Logs for the day:</h3>
         <CurrentLogs isNewlyLogged={isNewlyLogged} setIsNewlyLogged={setIsNewlyLogged} userLogs={userLogs} setUserLogs={setUserLogs} myUser={myUser} currentDate={currentDate}/>
-        <div id="flexing">
-        <button className="button" onClick={(event) =>{
-            event.preventDefault()
-            setMyUser({})
-        }}>Sign Out</button>
-        </div>
+      
          </div>
         
     )

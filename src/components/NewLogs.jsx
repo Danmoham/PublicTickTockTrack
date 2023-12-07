@@ -118,10 +118,14 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
         return (
         <div>
             <>
-            
+            <div id="centre-div">
+            <div id="small-div">
+            <p id="small-p">When adding a new activity, always type in the name of the activity first then select a duration and the time you would like to do it, if you are unsure of a time you can generate a reccommended time based on your activity. <b>When using generative AI, please be very specific with your prompts. E.G Reading 20 pages of a book.</b></p>
+             </div>
+             </div>  
             <div id="centre-div">
             <form className="cancel-log" onSubmit={checkingAdding}>
-            <p id="small-p">When adding a new activity, always type in the name of the activity first then select a duration and the time you would like to do it, if you are unsure of a time you can generate a reccommended time based on your activity. <b>When using generative AI, please be very specific with your prompts. E.G Reading 20 pages of a book.</b></p>
+             
                 <div id="seperators">
                 <label className="margin-input"> Activity: </label>
             <input id="form" className="form-control" value={activity} onChange={(event) =>{

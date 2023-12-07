@@ -1,3 +1,3 @@
 #Tracking App
 
-An App I am working on, to help people track their daily activities, will allow you to add and delete items from your tracking list. Can also view other days to see what you tracked on that day. Also has a calendar so you can view all days, once MVP is functional want to add AI to recommend a time period for certain activities, E.G walking the dog, for those that struggle with time keeping.
+An application that allows users to track their activities and can use generative AI to help give them an estimate time of how long this will take to create. The back-end is using Firebase and the front end uses React with a small amount of bootstrap. I have used an OpenAI Api to include the AI in the application. This will be being deployed very soon.
