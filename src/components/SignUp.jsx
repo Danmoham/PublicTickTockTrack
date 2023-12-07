@@ -110,7 +110,9 @@ function submitChecker(event){
     <p>{correctMessage}</p>
     </div>
     </div>
-    <p className="align-text"><Link to="/SignIn">Click here to Sign in</Link></p>
+    <div id="centre-div">
+    <Link to="/SignIn"><p id="margin-p">Click here to Sign in</p></Link>
+    </div>
 
     </div>
 }else{

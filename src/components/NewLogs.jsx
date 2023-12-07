@@ -63,10 +63,10 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             setErrorMessage("Please add a Name to the activity")
         }else if (parseInt(duration) >= 1440){
             setErrorMessage("Please ensure the duration is a reasonable time")            
-        } else if (isNaN(Number(duration))){
-            setErrorMessage("please ensure this is a number")
+        } else if (isNaN(Number(duration)) || duration.length === 0){
+            setErrorMessage("please a number is filled in, in the durations field")
         }else if (checkingSubmitTime(time,Number(duration),myTimes)){
-            setErrorMessage("Sorry, this event overlaps with another event! Please try again")
+            setErrorMessage("Sorry, this event overlaps with another event! Please try a different time")
         }else{
             setErrorMessage("Please wait while we process the submission")
             let date = String(new Date());
@@ -95,6 +95,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             setCorrectMessage("This has been Logged!")
             setHasClicked(false)
             setHasBeenFound(false)
+            setErrorMessage("")
         }
 
       }
@@ -105,11 +106,10 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     if (!isLogging){
     return (<div>
         <div id="adding-log">
-        <b><p className="margin-input">Click here to add a new log</p></b>
         <button className="button" onClick={(event) =>{
         event.preventDefault()
         setIsLogging(true)
-    }}>Add New Log</button>
+    }}>Add A New Activity Here</button>
     </div>
     <p className="align-text">{correctMessage}</p>
     </div>
@@ -118,8 +118,10 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
         return (
         <div>
             <>
+            
             <div id="centre-div">
             <form className="cancel-log" onSubmit={checkingAdding}>
+            <p id="small-p">When adding a new activity, always type in the name of the activity first then select a duration and the time you would like to do it, if you are unsure of a time you can generate a reccommended time based on your activity. <b>When using generative AI, please be very specific with your prompts. E.G Reading 20 pages of a book.</b></p>
                 <div id="seperators">
                 <label className="margin-input"> Activity: </label>
             <input id="form" className="form-control" value={activity} onChange={(event) =>{
@@ -127,7 +129,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 setActivity(event.target.value)
                 setErrorMessage("")
                 setCorrectMessage("")
-            }} placeholder="Type Activity here here"></input>
+            }} placeholder="Type Activity here"></input>
             </div>
            
             <div id="seperators">
@@ -183,7 +185,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
     // Content to display when hasClicked is false
     <>
         <p id="my-error">{errorMessage}</p>
-       <b><p className="align-text">When using generative AI, please be very specific with your prompts. E.G Reading 20 pages of a book.</p></b>
+       <b><p className="align-text"></p></b>
 
     <div id="time-generate">
     <button
@@ -204,7 +206,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
       }}
       className="button"
     >
-      Click to get a recommended time
+      Generate an AI reccommended time here!
     </button>
     </div>
     </>

@@ -65,6 +65,9 @@ h1{
   p{
     font-size: 20px !important;
   }
+  #small-p{
+    font-size: 15px !important;
+  }
 }
 
 
@@ -138,6 +141,7 @@ h1{
     background-color: #007ACC;
     margin: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    max-width: 330px;
     padding: 16px;
     text-align: center;
     background-color: #f1f1f1;
@@ -295,4 +299,16 @@ p{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+#margin-p{
+  margin: 20px;
+}
+.react-calendar{
+  width: 550px;
+  max-height: 500px;
+  font-size: 17px;
+  font-weight: 600;
+}
+#small-p{
+  font-size: 12px;
 }
