@@ -6,6 +6,7 @@ import { Home } from './components/Home'
 import { Header } from './components/Header'
 import { MyCalendar } from './components/Calendar'
 import { SpecificDay } from './components/SpecificDay'
+import { ErrorPage } from './components/ErrorPage'
 function App() {
   const [myUser,setMyUser] = useState({})
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/Calendar" element={<MyCalendar setMyUser={setMyUser} myUser={myUser} />} />
       <Route path="/day" element={<Home setMyUser={setMyUser} myUser={myUser}/>}/>
       <Route path='/day/:my_day' element={<SpecificDay setMyUser={setMyUser} myUser={myUser} />} />
+      <Route path='/*' element={<ErrorPage />} />
 
     </Routes>
     </div>
