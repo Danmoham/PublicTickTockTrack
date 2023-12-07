@@ -21,12 +21,26 @@ export function convertMinutesToTime(totalMinutes) {
     let myMinutes = 1440 -  parseInt(totalMinutes)
     const hours = Math.floor(myMinutes / 60);
     const minutes = myMinutes % 60;
-  
     const formattedHours = hours.toString().padStart(2, '0');
     const formattedMinutes = minutes.toString().padStart(2, '0');
   
     return `${formattedHours}:${formattedMinutes}`;
   }
+export function convertMinutesToListTime(myMinutes){
+    const hours = Math.floor(myMinutes / 60);
+    const minutes = myMinutes % 60;  
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    return `${formattedHours}:${formattedMinutes}`;
+}
+
+export function convertTimeToMinutes(Time){
+    let [hours,minutes] = Time.split(":").map(Number)
+    hours = hours * 60 
+    return hours + minutes
+
+}
 
 export function isViable (time,array){
     array.forEach(element => {
@@ -74,17 +88,10 @@ export  function generateTimeArray() {
   export function convertTo12HourFormat(time24) {
     // Parse the input time string
     const [hour, minute] = time24.split(':');
-    
-    // Convert the hour to a number
     let hourNum = parseInt(hour, 10);
-
-    // Determine whether it's AM or PM
     const period = hourNum < 12 ? 'AM' : 'PM';
-
-    // Adjust the hour for 12-hour format
     hourNum = hourNum % 12 || 12;
 
-    // Format the result
     const time12 = `${hourNum}:${minute} ${period}`;
 
     return time12;

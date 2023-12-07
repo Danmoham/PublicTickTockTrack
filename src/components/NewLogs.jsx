@@ -68,6 +68,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
         }else if (checkingSubmitTime(time,Number(duration),myTimes)){
             setErrorMessage("Sorry, this event overlaps with another event! Please try again")
         }else{
+            setErrorMessage("Please wait while we process the submission")
             let date = String(new Date());
             date = date.slice(0,15)
             const docRef = doc(db, "Users", myUser.username)
@@ -83,7 +84,6 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             try{
             await updateDoc(docRef,data)
             }catch(e){
-                console.log("there has been an error")
                 setErrorMessage("There has been a DB error, please try again later")
             }
             //setUserLogs([...userLogs,newLog])
@@ -93,6 +93,8 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             setIsNewlyLogged(true)
             setIsLogging(false)
             setCorrectMessage("This has been Logged!")
+            setHasClicked(false)
+            setHasBeenFound(false)
         }
 
       }
@@ -116,6 +118,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
         return (
         <div>
             <>
+            <div id="centre-div">
             <form className="cancel-log" onSubmit={checkingAdding}>
                 <div id="seperators">
                 <label className="margin-input"> Activity: </label>
@@ -143,8 +146,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
                 setTime(event.target.value)
                 setErrorMessage("")
                 setCorrectMessage("")
-                setHasClicked(false)
-                setHasBeenFound(false)
+                
             }}>
                 <option disabled>Select Time</option>
                {timeArray.map((each) =>{
@@ -163,6 +165,7 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
             <button id="add-button" className="button">Submit Here</button>
             </div>
             </form>
+            </div>
             </>
             <div>  
       

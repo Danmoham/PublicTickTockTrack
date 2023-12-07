@@ -74,31 +74,44 @@ function submitChecker(event){
 
 }
     if (!isLoading){
-    return <div><h2>Sign Up Here</h2>
-    <form onSubmit={submitChecker}>
-        <label htmlFor="username">Enter UserName Here: </label>
+    return <div><h2 className="align-text">Sign Up Here</h2>
+    <div id="centre-div">
+    <form id="sign-in" onSubmit={submitChecker}>
+        <div id="sign-up-divs">
+        <label id="margin-input" htmlFor="username">Enter UserName Here: </label>
         <input onChange={(event) =>{
             setUsername(event.target.value)
             setCorrectMessage("")
             setErrorMessage("")
         }} id="username" placeholder="Type Username Here"></input>
-        <label htmlFor="password">please enter your password: </label>
+        </div>
+        <div id="sign-up-divs">
+        <label id="margin-input" htmlFor="password">please enter your password: </label>
         <input onChange={(event) =>{
             setPassword(event.target.value)
             setCorrectMessage("")
             setErrorMessage("")
         }} placeholder="Please Enter Password" id="password"></input>
-        <label htmlFor="checkPassword">Please re-enter your password to confirm this: </label>
+        </div>
+        <div id="sign-up-divs">
+        <label id="margin-input" htmlFor="checkPassword">Please re-enter your password: </label>
         <input id="checkPassword" onChange={(event) =>{
             setCheckPassword(event.target.value)
             setCorrectMessage("")
             setErrorMessage("")
         }}placeholder="Re-enter Password Here"></input>
-        <button>Submit</button>
+        </div>
+        <div id="centre-div">
+        <button className="button">Submit</button>
+        </div>
     </form>
+    <div>
     <p>{errorMessage}</p>
     <p>{correctMessage}</p>
-    <Link to="/SignIn">Click here to Sign in</Link>
+    </div>
+    </div>
+    <p className="align-text"><Link to="/SignIn">Click here to Sign in</Link></p>
+
     </div>
 }else{
     return <h2>Loading...</h2>

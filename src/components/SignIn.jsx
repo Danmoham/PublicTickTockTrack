@@ -5,6 +5,7 @@ import {db} from '../firebase'
 import { useNavigate } from "react-router-dom"
 import { collection, getDocs } from "firebase/firestore";
 export const SignIn = ({myUser,setMyUser}) =>{
+    //RLS - enable on tables within DB
     const navigate = useNavigate()
     const [type, setType] = useState('password');   
     const [isHidden, setIsHidden] = useState("show");
@@ -53,8 +54,11 @@ export const SignIn = ({myUser,setMyUser}) =>{
 
     return <div>
                 <b><h2 id="overview" className="align-text">Overview</h2></b>
-                <p className="align-text">A Fun web application you can use to track your daily activity on each day!</p>
-                <p className="align-text">You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
+                <div id="centre-div">
+                <div id="bordering-sign-in">
+                <p className="align-text">A Fun web application you can use to track your daily activity on each day! You can track your activity through logging events and you can use our generated AI to check how long each event should last! All events are stored under a calendar where you can check what events you did on each day!</p>
+                </div>
+                </div>
         <h2 className="align-text">Enter sign in details below</h2><div>
         <form id="sign-in" className="align-text" onSubmit={dataCheck}>
             <label htmlFor="username">UserName:</label>
@@ -64,12 +68,14 @@ export const SignIn = ({myUser,setMyUser}) =>{
                 setCorrectMessage("")
             }} value={myUserName} placeholder="Enter username here">
             </input>
-            <label htmlFor="password">Enter Password Here</label>
+            <div>
+            <label htmlFor="password">Password: </label>
             <input id="form" className=" margin-input" type={type} onChange={(event) =>{
                 event.preventDefault()
                 setMyPassword(event.target.value)
                 setCorrectMessage("")
             }} value={myPassword} placeholder="Enter password here"></input>
+            </div>
               <button className="button" onClick={handleToggle}>{isHidden}
               </button>
         

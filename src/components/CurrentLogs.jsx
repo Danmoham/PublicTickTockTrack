@@ -4,6 +4,8 @@ import { arrayRemove, doc, getDoc,updateDoc } from "firebase/firestore";
 import { convertMinutesToTime } from "../libs/functions";
 import { convertTo12HourFormat } from "../libs/functions";
 import { transferTodaysLogs } from "../libs/functions";
+import { convertTimeToMinutes } from "../libs/functions";
+import { convertMinutesToListTime } from "../libs/functions";
 
 
 export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyLogged,isNewlyLogged}) =>{
@@ -28,7 +30,7 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
         setIsLoading(false)
     }
     async function gettingData(){
-        const docRef = doc(db, "Users", "Danny");
+        const docRef = doc(db, "Users", myUser.username);
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
@@ -66,10 +68,16 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
         <div id="centre-div">
         <ul className="my-logs">
             {userLogs.map((log) =>{
-                let myLog = convertTo12HourFormat(log.Time)                
+                let myLog = convertTo12HourFormat(log.Time)  
+                let myTime = (Number(log.Duration) + convertTimeToMinutes(log.Time))  
+                myTime = convertMinutesToListTime(myTime)
+                myTime = convertTo12HourFormat(myTime)
+
+                //console.log(myTime)
+              //  let mytimeFinish = convertTo12HourFormat(myTime)
                 return <div className="my-log">
-                    <li>Activity: {log.Activity}</li>
-                    <li>Time This is booked in at {myLog}</li>
+                    <li className="activity">{log.Activity}</li>
+                    <li>Scheduled: {myLog} till {myTime}</li>
                     <li> Duration: {log.Duration} Minutes</li>
                     <button className="delete-button" onClick={async (event) =>{
                         event.preventDefault()
@@ -99,8 +107,8 @@ export const CurrentLogs = ({userLogs,setUserLogs,myUser,currentDate,setIsNewlyL
         <p>{errorMessage}</p>
     </div>
     }else{
-        return <div>
-            <h3>Loading....</h3>
+        return <div id="centre-div">
+            <h3 id="align-text">Loading....</h3>
         </div>
     }
 }
