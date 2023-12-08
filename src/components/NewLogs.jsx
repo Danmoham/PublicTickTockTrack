@@ -128,12 +128,12 @@ export const NewLogs = ({setUserLogs,userLogs,myUser,setMyUser,setIsNewlyLogged,
              
                 <div id="seperators">
                 <label className="margin-input"> Activity: </label>
-            <input id="form" className="form-control" value={activity} onChange={(event) =>{
+            <textarea id="form" className="form-control" value={activity} onChange={(event) =>{
                 event.preventDefault()
                 setActivity(event.target.value)
                 setErrorMessage("")
                 setCorrectMessage("")
-            }} placeholder="Type Activity here"></input>
+            }} placeholder="Type Activity here"></textarea>
             </div>
            
             <div id="seperators">

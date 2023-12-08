@@ -217,6 +217,7 @@ h1{
 #form{
     display: auto;
     width: auto;
+    font-size: 14px;
 }
 
 .select{
