@@ -1,4 +1,4 @@
-#Tracking App
+<strong>Tracking App</strong>
 
 An application that allows users to track their activities and can use generative AI to help give them an estimate time of how long this will take to create. The back-end is using Firebase and the front end uses React with a small amount of bootstrap. I have used an OpenAI API to include the AI in the application. This version of the APP is the public version so it will not run when cloned.
 
