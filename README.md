@@ -6,3 +6,4 @@ This is due to not having any back-end keys and the API key for the AI has been 
 
 Link to hosted site: https://ticktocktask.netlify.app/
 
+Legacy project, stopped working on it in the tail end of 2023.
